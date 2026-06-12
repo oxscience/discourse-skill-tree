@@ -14,7 +14,7 @@ const DEFAULT_TREE = {
     { id: "rehab", category: "klinik", label: "Rehab", x: 268, y: 272, r: 36 },
     { id: "science", category: "forschung-evidenz", label: "Science", x: 420, y: 118, r: 38 },
     { id: "tech-ki", category: "webinare", label: "Tech & KI", x: 592, y: 96, r: 32 },
-    { id: "neuro", category: "neurowissenschaften", label: "Neurowissenschaften", x: 545, y: 230, r: 38 },
+    { id: "neuro", category: "neurowissenschaften", label: ["Neuro-", "wissenschaften"], x: 545, y: 230, r: 38 },
     { id: "pain-performance", category: "pain-performance", label: "Pain & Performance", x: 382, y: 338, r: 36 },
     { id: "symposien", category: "ox-symposien-pro", label: "Symposien", x: 635, y: 300, r: 30 },
   ],
@@ -149,7 +149,15 @@ function buildGraph(api, container) {
       y: n.y + n.r + 16,
       "text-anchor": "middle",
     });
-    label.textContent = cat ? cat.name : n.label || n.id;
+    // Curated label wins (allows short forms and manual line breaks via
+    // arrays); category name is the fallback.
+    const raw = n.label || (cat ? cat.name : n.id);
+    const lines = Array.isArray(raw) ? raw : [raw];
+    lines.forEach((line, i) => {
+      const tspan = svgEl("tspan", { x: n.x, dy: i === 0 ? 0 : "1.2em" });
+      tspan.textContent = line;
+      label.appendChild(tspan);
+    });
     g.appendChild(label);
 
     svg.appendChild(g);
