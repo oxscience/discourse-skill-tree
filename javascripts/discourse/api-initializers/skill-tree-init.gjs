@@ -17,7 +17,7 @@ const DEFAULT_TREE = {
     { id: "rehab", category: "klinik", label: "Rehab", x: 300, y: 270, r: 36 },
     { id: "science", category: "forschung-evidenz", label: "Science", x: 410, y: 180, r: 34 },
     { id: "tech-ki", category: "webinare", label: "Tech & KI", x: 350, y: 80, r: 28 },
-    { id: "neuro", category: "neurowissenschaften", label: ["Neuro-", "wissenschaften"], x: 520, y: 250, r: 36 },
+    { id: "neuro", category: "neurowissenschaften", label: ["Neuro-", "wissenschaften"], x: 500, y: 255, r: 36 },
     { id: "pain-performance", category: "pain-performance", label: "Pain & Performance", x: 615, y: 200, r: 40 },
     { id: "symposien", category: "ox-symposien-pro", label: "Symposien", x: 600, y: 350, r: 26 },
   ],
