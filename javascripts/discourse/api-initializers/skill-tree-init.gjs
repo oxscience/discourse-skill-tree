@@ -100,6 +100,10 @@ function buildGraph(api, container) {
     );
   });
 
+  const pricingUrl =
+    (typeof settings !== "undefined" && settings.pricing_url) ||
+    "https://outoftheb-ox.de/pages/oxcampus#ox-pricing";
+
   def.nodes.forEach((n) => {
     const cat = findCategory(site, n.category);
     const locked = !cat;
@@ -107,8 +111,14 @@ function buildGraph(api, container) {
 
     const g = cat
       ? svgEl("a", { href: `/c/${cat.slug}/${cat.id}` })
-      : svgEl("g");
+      : svgEl("a", { href: pricingUrl });
     g.setAttribute("class", "ost-node" + (locked ? " -locked" : ""));
+
+    if (locked) {
+      const tooltip = svgEl("title");
+      tooltip.textContent = "Pro-Bereich — mehr zum Campus-Zugang";
+      g.appendChild(tooltip);
+    }
 
     if (lms) {
       const ringR = n.r + 5;

@@ -5,3 +5,10 @@ tree_definition:
   description:
     en: "Skill tree definition as JSON. nodes: id, category (slug), label (fallback when the category is not visible), x/y/r (position and radius in a 680-wide coordinate space). links: pairs of node ids. Invalid JSON falls back to the built-in default."
     de: "Skill-Tree-Definition als JSON. nodes: id, category (Slug), label (Fallback wenn die Kategorie nicht sichtbar ist), x/y/r (Position und Radius in einem 680 breiten Koordinatenraum). links: Paare von Node-IDs. Ungültiges JSON fällt auf den eingebauten Standard zurück."
+
+pricing_url:
+  type: string
+  default: "https://outoftheb-ox.de/pages/oxcampus#ox-pricing"
+  description:
+    en: "Target URL when a locked (Pro) node is clicked."
+    de: "Ziel-URL beim Klick auf einen gesperrten (Pro-)Knoten."
