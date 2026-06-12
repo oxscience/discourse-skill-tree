@@ -1,0 +1,7 @@
+tree_definition:
+  type: string
+  textarea: true
+  default: '{"height":420,"nodes":[{"id":"training","category":"training","label":"Training","x":170,"y":150,"r":44},{"id":"ernaehrung","category":"ernaehrung","label":"Ernährung","x":88,"y":288,"r":34},{"id":"rehab","category":"klinik","label":"Rehab","x":268,"y":272,"r":36},{"id":"science","category":"forschung-evidenz","label":"Science","x":420,"y":118,"r":38},{"id":"tech-ki","category":"webinare","label":"Tech & KI","x":592,"y":96,"r":32},{"id":"neuro","category":"neurowissenschaften","label":"Neurowissenschaften","x":545,"y":230,"r":38},{"id":"pain-performance","category":"pain-performance","label":"Pain & Performance","x":382,"y":338,"r":36},{"id":"symposien","category":"ox-symposien-pro","label":"Symposien","x":635,"y":300,"r":30}],"links":[["training","ernaehrung"],["training","rehab"],["training","science"],["rehab","pain-performance"],["science","neuro"],["science","tech-ki"],["neuro","pain-performance"],["neuro","symposien"]]}'
+  description:
+    en: "Skill tree definition as JSON. nodes: id, category (slug), label (fallback when the category is not visible), x/y/r (position and radius in a 680-wide coordinate space). links: pairs of node ids. Invalid JSON falls back to the built-in default."
+    de: "Skill-Tree-Definition als JSON. nodes: id, category (Slug), label (Fallback wenn die Kategorie nicht sichtbar ist), x/y/r (Position und Radius in einem 680 breiten Koordinatenraum). links: Paare von Node-IDs. Ungültiges JSON fällt auf den eingebauten Standard zurück."

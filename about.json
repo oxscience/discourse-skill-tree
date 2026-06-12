@@ -1,0 +1,9 @@
+{
+  "name": "OX Skill Tree",
+  "component": true,
+  "about_url": "https://github.com/oxscience/discourse-skill-tree",
+  "license_url": "https://github.com/oxscience/discourse-skill-tree/blob/main/LICENSE",
+  "authors": "Pat (oxscience)",
+  "assets": {},
+  "color_schemes": {}
+}
