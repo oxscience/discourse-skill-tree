@@ -146,7 +146,7 @@ function buildGraph(api, container) {
     const label = svgEl("text", {
       class: "ost-label",
       x: n.x,
-      y: n.y + n.r + 16,
+      y: n.y + n.r + 24,
       "text-anchor": "middle",
     });
     // Curated label wins (allows short forms and manual line breaks via

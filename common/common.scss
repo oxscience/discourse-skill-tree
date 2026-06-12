@@ -8,7 +8,7 @@
       display: block;
       width: 100%;
       min-width: 540px;
-      max-width: 800px;
+      max-width: 680px;
       height: auto;
       margin: 0 auto;
     }
@@ -16,19 +16,19 @@
 
   .ost-edge {
     stroke: var(--primary-low-mid);
-    stroke-width: 1;
+    stroke-width: 0.75;
   }
 
   .ost-ring-track {
     fill: none;
     stroke: var(--primary-low);
-    stroke-width: 3;
+    stroke-width: 2;
   }
 
   .ost-ring {
     fill: none;
     stroke: var(--success);
-    stroke-width: 3;
+    stroke-width: 2;
     stroke-linecap: round;
     transition: stroke-dasharray 0.8s ease;
   }
@@ -37,7 +37,7 @@
     .ost-bubble {
       fill: var(--primary-very-low);
       stroke: var(--primary-low-mid);
-      stroke-width: 1;
+      stroke-width: 0.75;
       transition: stroke 0.15s ease;
     }
 
@@ -54,7 +54,7 @@
       .ost-pct {
         fill: var(--primary-medium);
         font-weight: 400;
-        font-size: 11px;
+        font-size: 10px;
         letter-spacing: 0.05em;
         text-transform: uppercase;
       }
@@ -71,12 +71,12 @@
   }
 
   .ost-pct {
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 12px;
+    font-weight: 500;
   }
 
   .ost-label {
-    font-size: 13px;
+    font-size: 12px;
   }
 
   .ost-legend {
