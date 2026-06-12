@@ -33,6 +33,13 @@ const DEFAULT_TREE = {
     ["rehab", "pain-performance"],
     ["neuro", "pain-performance"],
   ],
+  // Thematic overlaps (dashed): training/rehab is the obvious clinical one;
+  // the other two are backed by actual cross-category topic links on campus.
+  overlaps: [
+    ["training", "rehab"],
+    ["ernaehrung", "rehab"],
+    ["ernaehrung", "symposien"],
+  ],
 };
 
 function treeDefinition() {
@@ -77,8 +84,10 @@ function buildGraph(api, container) {
   const nodesById = {};
   def.nodes.forEach((n) => (nodesById[n.id] = n));
 
-  // Edges first so the bubbles paint on top of the line ends.
-  (def.links || []).forEach((pair) => {
+  // Edges first so the bubbles paint on top of the line ends. Overlap edges
+  // (thematic closeness, not a learning step) get extra padding so they
+  // also clear the node labels, and render dashed via .ost-overlap.
+  function drawEdge(pair, cls, pad) {
     const a = nodesById[pair[0]];
     const b = nodesById[pair[1]];
     if (!a || !b) {
@@ -87,8 +96,8 @@ function buildGraph(api, container) {
     const dx = b.x - a.x;
     const dy = b.y - a.y;
     const len = Math.sqrt(dx * dx + dy * dy);
-    const padA = a.r + 8;
-    const padB = b.r + 8;
+    const padA = a.r + pad;
+    const padB = b.r + pad;
     if (!len || len <= padA + padB) {
       return;
     }
@@ -96,14 +105,17 @@ function buildGraph(api, container) {
     const uy = dy / len;
     svg.appendChild(
       svgEl("line", {
-        class: "ost-edge",
+        class: cls,
         x1: (a.x + ux * padA).toFixed(1),
         y1: (a.y + uy * padA).toFixed(1),
         x2: (b.x - ux * padB).toFixed(1),
         y2: (b.y - uy * padB).toFixed(1),
       })
     );
-  });
+  }
+
+  (def.overlaps || []).forEach((pair) => drawEdge(pair, "ost-edge ost-overlap", 30));
+  (def.links || []).forEach((pair) => drawEdge(pair, "ost-edge", 8));
 
   const pricingUrl =
     (typeof settings !== "undefined" && settings.pricing_url) ||
@@ -184,7 +196,8 @@ function buildGraph(api, container) {
   legend.className = "ost-legend";
   legend.innerHTML =
     '<span><span class="ost-dot -ring"></span>Ring = dein Fortschritt</span>' +
-    '<span><span class="ost-dot -locked"></span>Pro-Bereich</span>';
+    '<span><span class="ost-dot -locked"></span>Pro-Bereich</span>' +
+    '<span><span class="ost-dash"></span>inhaltliche Nähe</span>';
   container.appendChild(legend);
 
   // Async progress fill — updates existing SVG attributes in place, so the

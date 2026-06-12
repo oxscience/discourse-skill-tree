@@ -19,6 +19,11 @@
     stroke-width: 0.75;
   }
 
+  .ost-overlap {
+    stroke-dasharray: 3 5;
+    opacity: 0.8;
+  }
+
   .ost-ring-track {
     fill: none;
     stroke: var(--primary-low);
@@ -102,6 +107,14 @@
       &.-locked {
         border: 1px dashed var(--primary-medium);
       }
+    }
+
+    .ost-dash {
+      display: inline-block;
+      width: 16px;
+      border-top: 1px dashed var(--primary-medium);
+      vertical-align: 3px;
+      margin-right: 4px;
     }
   }
 }
