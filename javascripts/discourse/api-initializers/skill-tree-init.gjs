@@ -6,27 +6,28 @@ import { apiInitializer } from "discourse/lib/api";
 const SVG_NS = "http://www.w3.org/2000/svg";
 
 // Fallback when the theme setting is missing or contains invalid JSON.
+// Layout logic: one linear learning path rising from bottom-left (free entry)
+// to top-right (Pro specialization), Tech & KI branching off Science,
+// Symposien as an unlinked satellite (format, not a skill).
 const DEFAULT_TREE = {
   height: 420,
   nodes: [
-    { id: "training", category: "training", label: "Training", x: 170, y: 150, r: 44 },
-    { id: "ernaehrung", category: "ernaehrung", label: "Ernährung", x: 88, y: 288, r: 34 },
-    { id: "rehab", category: "klinik", label: "Rehab", x: 268, y: 272, r: 36 },
-    { id: "science", category: "forschung-evidenz", label: "Science", x: 420, y: 118, r: 38 },
-    { id: "tech-ki", category: "webinare", label: "Tech & KI", x: 592, y: 96, r: 32 },
-    { id: "neuro", category: "neurowissenschaften", label: ["Neuro-", "wissenschaften"], x: 545, y: 230, r: 38 },
-    { id: "pain-performance", category: "pain-performance", label: "Pain & Performance", x: 382, y: 338, r: 36 },
-    { id: "symposien", category: "ox-symposien-pro", label: "Symposien", x: 635, y: 300, r: 30 },
+    { id: "training", category: "training", label: "Training", x: 80, y: 280, r: 40 },
+    { id: "ernaehrung", category: "ernaehrung", label: "Ernährung", x: 190, y: 200, r: 30 },
+    { id: "rehab", category: "klinik", label: "Rehab", x: 300, y: 270, r: 36 },
+    { id: "science", category: "forschung-evidenz", label: "Science", x: 410, y: 180, r: 34 },
+    { id: "tech-ki", category: "webinare", label: "Tech & KI", x: 350, y: 80, r: 28 },
+    { id: "neuro", category: "neurowissenschaften", label: ["Neuro-", "wissenschaften"], x: 520, y: 250, r: 36 },
+    { id: "pain-performance", category: "pain-performance", label: "Pain & Performance", x: 615, y: 200, r: 40 },
+    { id: "symposien", category: "ox-symposien-pro", label: "Symposien", x: 600, y: 350, r: 26 },
   ],
   links: [
     ["training", "ernaehrung"],
-    ["training", "rehab"],
-    ["training", "science"],
-    ["rehab", "pain-performance"],
-    ["science", "neuro"],
+    ["ernaehrung", "rehab"],
+    ["rehab", "science"],
     ["science", "tech-ki"],
+    ["science", "neuro"],
     ["neuro", "pain-performance"],
-    ["neuro", "symposien"],
   ],
 };
 
