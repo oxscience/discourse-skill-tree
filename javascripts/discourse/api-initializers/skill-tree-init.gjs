@@ -33,12 +33,21 @@ const DEFAULT_TREE = {
     ["rehab", "pain-performance"],
     ["neuro", "pain-performance"],
   ],
-  // Thematic overlaps (dashed): training/rehab is the obvious clinical one;
-  // the other two are backed by actual cross-category topic links on campus.
+  // Thematic overlaps (dashed). training/rehab is the obvious clinical one;
+  // ernaehrung/rehab is backed by cross-category topic links. Symposien is a
+  // cross-cutting format — a tag analysis of its 27 talks shows content in
+  // every domain (training, rehab, pain/neuro, science, AI, nutrition), so
+  // it docks to all of them rather than to nutrition alone.
   overlaps: [
     ["training", "rehab"],
     ["ernaehrung", "rehab"],
-    ["ernaehrung", "symposien"],
+    ["symposien", "science"],
+    ["symposien", "training"],
+    ["symposien", "rehab"],
+    ["symposien", "ernaehrung"],
+    ["symposien", "neuro"],
+    ["symposien", "pain-performance"],
+    ["symposien", "tech-ki"],
   ],
 };
 
