@@ -192,6 +192,26 @@ function buildGraph(api, container) {
 
   container.appendChild(svg);
 
+  // Fit the viewBox to the actual rendered content (bubbles + labels) so
+  // there is no asymmetric dead space around the graph. The curated layout
+  // leaves more empty room on one side; on a narrow (mobile) viewport that
+  // reads as the whole tree being shoved sideways. Cropping to the real
+  // bounding box keeps it centered on every screen width. Wrapped in a
+  // guard so a failed/empty getBBox just leaves the static viewBox in place.
+  try {
+    const bb = svg.getBBox();
+    if (bb && bb.width > 0 && bb.height > 0) {
+      const pad = 18;
+      svg.setAttribute(
+        "viewBox",
+        `${(bb.x - pad).toFixed(1)} ${(bb.y - pad).toFixed(1)} ` +
+          `${(bb.width + pad * 2).toFixed(1)} ${(bb.height + pad * 2).toFixed(1)}`
+      );
+    }
+  } catch {
+    // keep the static viewBox
+  }
+
   const legend = document.createElement("div");
   legend.className = "ost-legend";
   legend.innerHTML =

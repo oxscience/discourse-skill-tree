@@ -3,6 +3,7 @@
 .ox-skill-tree-section {
   .ox-skill-tree-graph {
     overflow-x: auto;
+    text-align: center;
 
     svg {
       display: block;
@@ -11,6 +12,19 @@
       max-width: 680px;
       height: auto;
       margin: 0 auto;
+    }
+  }
+
+  // On narrow viewports drop the min-width so the whole graph scales to fit
+  // and stays centered, instead of overflowing into a sideways-scrolled,
+  // right-shifted view. Labels get smaller but the full tree is visible.
+  @media (max-width: 700px) {
+    .ox-skill-tree-graph {
+      overflow-x: visible;
+
+      svg {
+        min-width: 0;
+      }
     }
   }
 
