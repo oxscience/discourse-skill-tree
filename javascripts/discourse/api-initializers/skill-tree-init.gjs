@@ -6,51 +6,37 @@ import { apiInitializer } from "discourse/lib/api";
 const SVG_NS = "http://www.w3.org/2000/svg";
 
 // Fallback when the theme setting is missing or contains invalid JSON.
-// Layout logic: vertically flipped so the most important node sits on top.
-// Pain & Performance (and Neuro) are at the top; below them the horizontal
-// spine, left→right in order — Science → Training → Rehab → Tech & KI —
-// connected as a solid sequence; Ernährung hangs below Training. Symposien
-// sits between the top tier and the spine, the cross-cutting format that
-// docks (dashed) to every domain.
+// Layout logic: a clean game-style talent tree, top→down, solid edges only.
+// Science is the root (everything builds on evidence) and fans symmetrically
+// into the five domains. Two branches continue to a third tier: Training →
+// Ernährung, and Rehab + Neuro converge into Pain & Performance — the big
+// capstone you work toward. No dashed "overlap" web: a tree, not a net.
 const DEFAULT_TREE = {
-  height: 470,
+  height: 475,
   nodes: [
-    { id: "science", category: "forschung-evidenz", label: "Science", x: 105, y: 275, r: 32 },
-    { id: "training", category: "training", label: "Training", x: 280, y: 275, r: 30 },
-    { id: "rehab", category: "klinik", label: "Rehab", x: 450, y: 275, r: 32 },
-    { id: "tech-ki", category: "webinare", label: "Tech & KI", x: 600, y: 275, r: 24 },
-    { id: "ernaehrung", category: "ernaehrung", label: "Ernährung", x: 370, y: 395, r: 26 },
-    { id: "neuro", category: "neurowissenschaften", label: ["Neuro-", "wissenschaften"], x: 150, y: 95, r: 28 },
-    { id: "pain-performance", category: "pain-performance", label: "Pain & Performance", x: 335, y: 100, r: 36 },
-    { id: "symposien", category: "ox-symposien-pro", label: "Symposien", x: 270, y: 190, r: 24 },
+    { id: "science", category: "forschung-evidenz", label: "Science", x: 346, y: 70, r: 34 },
+    { id: "tech-ki", category: "webinare", label: "Tech & KI", x: 90, y: 220, r: 26 },
+    { id: "training", category: "training", label: "Training", x: 218, y: 220, r: 30 },
+    { id: "rehab", category: "klinik", label: "Rehab", x: 346, y: 220, r: 32 },
+    { id: "neuro", category: "neurowissenschaften", label: ["Neuro-", "wissenschaften"], x: 474, y: 220, r: 30 },
+    { id: "symposien", category: "ox-symposien-pro", label: "Symposien", x: 602, y: 220, r: 26 },
+    { id: "ernaehrung", category: "ernaehrung", label: "Ernährung", x: 218, y: 375, r: 26 },
+    { id: "pain-performance", category: "pain-performance", label: "Pain & Performance", x: 410, y: 380, r: 42 },
   ],
-  // Solid: the horizontal spine sequence plus the off-spine branches.
+  // Solid tree edges only — the learning progression.
   links: [
+    ["science", "tech-ki"],
     ["science", "training"],
-    ["training", "rehab"],
-    ["rehab", "tech-ki"],
-    ["training", "ernaehrung"],
+    ["science", "rehab"],
     ["science", "neuro"],
+    ["science", "symposien"],
+    ["training", "ernaehrung"],
     ["rehab", "pain-performance"],
     ["neuro", "pain-performance"],
   ],
-  // Thematic overlaps (dashed). ernaehrung/rehab is backed by cross-category
-  // topic links. Pain & Performance also overlaps Training and Science (Rehab
-  // and Neuro are already wired via the solid path). Symposien is a
-  // cross-cutting format — a tag analysis of its 27 talks shows content in
-  // every domain — so it docks to all of them.
-  overlaps: [
-    ["ernaehrung", "rehab"],
-    ["pain-performance", "science"],
-    ["pain-performance", "training"],
-    ["symposien", "science"],
-    ["symposien", "training"],
-    ["symposien", "rehab"],
-    ["symposien", "ernaehrung"],
-    ["symposien", "neuro"],
-    ["symposien", "pain-performance"],
-    ["symposien", "tech-ki"],
-  ],
+  // Intentionally empty: the dashed thematic web was the main source of
+  // clutter. Kept as a capability — re-add pairs here if ever wanted.
+  overlaps: [],
 };
 
 function treeDefinition() {
@@ -236,10 +222,13 @@ function buildGraph(api, container) {
 
   const legend = document.createElement("div");
   legend.className = "ost-legend";
-  legend.innerHTML =
+  let legendHtml =
     '<span><span class="ost-dot -ring"></span>Ring = dein Fortschritt</span>' +
-    '<span><span class="ost-dot -locked"></span>Pro-Bereich</span>' +
-    '<span><span class="ost-dash"></span>inhaltliche Nähe</span>';
+    '<span><span class="ost-dot -locked"></span>Pro-Bereich</span>';
+  if ((def.overlaps || []).length) {
+    legendHtml += '<span><span class="ost-dash"></span>inhaltliche Nähe</span>';
+  }
+  legend.innerHTML = legendHtml;
   container.appendChild(legend);
 
   // Async progress fill — updates existing SVG attributes in place, so the
