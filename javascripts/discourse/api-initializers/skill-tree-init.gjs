@@ -6,23 +6,23 @@ import { apiInitializer } from "discourse/lib/api";
 const SVG_NS = "http://www.w3.org/2000/svg";
 
 // Fallback when the theme setting is missing or contains invalid JSON.
-// Layout logic: a horizontal central spine, left→right in order — Science →
-// Training → Rehab → Tech & KI — connected as a solid sequence. Everything
-// else docks onto that spine: Ernährung above Training, Neuro below Science,
-// Pain & Performance below center between its partners (Science, Training,
-// Rehab, Neuro), and Symposien just below the spine center as the
-// cross-cutting format that docks (dashed) to every domain.
+// Layout logic: vertically flipped so the most important node sits on top.
+// Pain & Performance (and Neuro) are at the top; below them the horizontal
+// spine, left→right in order — Science → Training → Rehab → Tech & KI —
+// connected as a solid sequence; Ernährung hangs below Training. Symposien
+// sits between the top tier and the spine, the cross-cutting format that
+// docks (dashed) to every domain.
 const DEFAULT_TREE = {
   height: 470,
   nodes: [
-    { id: "science", category: "forschung-evidenz", label: "Science", x: 105, y: 195, r: 32 },
-    { id: "training", category: "training", label: "Training", x: 280, y: 195, r: 30 },
-    { id: "rehab", category: "klinik", label: "Rehab", x: 450, y: 195, r: 32 },
-    { id: "tech-ki", category: "webinare", label: "Tech & KI", x: 600, y: 195, r: 24 },
-    { id: "ernaehrung", category: "ernaehrung", label: "Ernährung", x: 370, y: 75, r: 26 },
-    { id: "neuro", category: "neurowissenschaften", label: ["Neuro-", "wissenschaften"], x: 150, y: 375, r: 28 },
-    { id: "pain-performance", category: "pain-performance", label: "Pain & Performance", x: 335, y: 370, r: 36 },
-    { id: "symposien", category: "ox-symposien-pro", label: "Symposien", x: 250, y: 295, r: 24 },
+    { id: "science", category: "forschung-evidenz", label: "Science", x: 105, y: 275, r: 32 },
+    { id: "training", category: "training", label: "Training", x: 280, y: 275, r: 30 },
+    { id: "rehab", category: "klinik", label: "Rehab", x: 450, y: 275, r: 32 },
+    { id: "tech-ki", category: "webinare", label: "Tech & KI", x: 600, y: 275, r: 24 },
+    { id: "ernaehrung", category: "ernaehrung", label: "Ernährung", x: 370, y: 395, r: 26 },
+    { id: "neuro", category: "neurowissenschaften", label: ["Neuro-", "wissenschaften"], x: 150, y: 95, r: 28 },
+    { id: "pain-performance", category: "pain-performance", label: "Pain & Performance", x: 335, y: 100, r: 36 },
+    { id: "symposien", category: "ox-symposien-pro", label: "Symposien", x: 270, y: 190, r: 24 },
   ],
   // Solid: the horizontal spine sequence plus the off-spine branches.
   links: [
