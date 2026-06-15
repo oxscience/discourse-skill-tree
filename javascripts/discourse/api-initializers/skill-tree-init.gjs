@@ -24,7 +24,7 @@ const DEFAULT_TREE = {
     { id: "rehab", category: "klinik", label: "Rehab", x: 495, y: 320, r: 32 },
     { id: "neuro", category: "neurowissenschaften", label: ["Neuro-", "wissenschaften"], x: 160, y: 385, r: 28 },
     { id: "pain-performance", category: "pain-performance", label: "Pain & Performance", x: 300, y: 335, r: 36 },
-    { id: "symposien", category: "ox-symposien-pro", label: "Symposien", x: 375, y: 195, r: 26 },
+    { id: "symposien", category: "ox-symposien-pro", label: "Symposien", x: 335, y: 215, r: 26 },
   ],
   links: [
     ["science", "tech-ki"],
