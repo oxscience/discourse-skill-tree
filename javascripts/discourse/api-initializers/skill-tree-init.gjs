@@ -6,43 +6,40 @@ import { apiInitializer } from "discourse/lib/api";
 const SVG_NS = "http://www.w3.org/2000/svg";
 
 // Fallback when the theme setting is missing or contains invalid JSON.
-// Layout logic: Science stays the central hierarchy hub (4 solid branches:
-// Tech & KI, Training→Ernährung, Rehab, Neuro). Pain & Performance sits just
-// below center, evenly between its four content partners (Science, Training,
-// Rehab, Neuro) — and deliberately away from Ernährung and Tech & KI, which
-// it does not overlap. Symposien is pulled out of the corner to a central
-// position because it is a cross-cutting format that docks (dashed) to every
-// domain. Three nodes (Science, P&P, Symposien) all want the center, so they
-// share the middle band rather than stacking on one point.
+// Layout logic: a horizontal central spine, left→right in order — Science →
+// Training → Rehab → Tech & KI — connected as a solid sequence. Everything
+// else docks onto that spine: Ernährung above Training, Neuro below Science,
+// Pain & Performance below center between its partners (Science, Training,
+// Rehab, Neuro), and Symposien just below the spine center as the
+// cross-cutting format that docks (dashed) to every domain.
 const DEFAULT_TREE = {
-  height: 465,
+  height: 470,
   nodes: [
-    { id: "science", category: "forschung-evidenz", label: "Science", x: 230, y: 210, r: 32 },
-    { id: "tech-ki", category: "webinare", label: "Tech & KI", x: 110, y: 110, r: 24 },
-    { id: "training", category: "training", label: "Training", x: 405, y: 120, r: 30 },
-    { id: "ernaehrung", category: "ernaehrung", label: "Ernährung", x: 555, y: 110, r: 26 },
-    { id: "rehab", category: "klinik", label: "Rehab", x: 495, y: 320, r: 32 },
-    { id: "neuro", category: "neurowissenschaften", label: ["Neuro-", "wissenschaften"], x: 160, y: 385, r: 28 },
-    { id: "pain-performance", category: "pain-performance", label: "Pain & Performance", x: 300, y: 335, r: 36 },
-    { id: "symposien", category: "ox-symposien-pro", label: "Symposien", x: 335, y: 215, r: 26 },
+    { id: "science", category: "forschung-evidenz", label: "Science", x: 105, y: 195, r: 32 },
+    { id: "training", category: "training", label: "Training", x: 280, y: 195, r: 30 },
+    { id: "rehab", category: "klinik", label: "Rehab", x: 450, y: 195, r: 32 },
+    { id: "tech-ki", category: "webinare", label: "Tech & KI", x: 600, y: 195, r: 24 },
+    { id: "ernaehrung", category: "ernaehrung", label: "Ernährung", x: 370, y: 75, r: 26 },
+    { id: "neuro", category: "neurowissenschaften", label: ["Neuro-", "wissenschaften"], x: 150, y: 375, r: 28 },
+    { id: "pain-performance", category: "pain-performance", label: "Pain & Performance", x: 335, y: 370, r: 36 },
+    { id: "symposien", category: "ox-symposien-pro", label: "Symposien", x: 250, y: 295, r: 24 },
   ],
+  // Solid: the horizontal spine sequence plus the off-spine branches.
   links: [
-    ["science", "tech-ki"],
     ["science", "training"],
-    ["science", "rehab"],
-    ["science", "neuro"],
+    ["training", "rehab"],
+    ["rehab", "tech-ki"],
     ["training", "ernaehrung"],
+    ["science", "neuro"],
     ["rehab", "pain-performance"],
     ["neuro", "pain-performance"],
   ],
-  // Thematic overlaps (dashed). training/rehab is the obvious clinical one;
-  // ernaehrung/rehab is backed by cross-category topic links. Pain &
-  // Performance also overlaps Training and Science (its other two partners
-  // are already wired via the solid path through Rehab and Neuro). Symposien
-  // is a cross-cutting format — a tag analysis of its 27 talks shows content
-  // in every domain — so it docks to all of them.
+  // Thematic overlaps (dashed). ernaehrung/rehab is backed by cross-category
+  // topic links. Pain & Performance also overlaps Training and Science (Rehab
+  // and Neuro are already wired via the solid path). Symposien is a
+  // cross-cutting format — a tag analysis of its 27 talks shows content in
+  // every domain — so it docks to all of them.
   overlaps: [
-    ["training", "rehab"],
     ["ernaehrung", "rehab"],
     ["pain-performance", "science"],
     ["pain-performance", "training"],
