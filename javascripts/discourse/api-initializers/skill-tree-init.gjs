@@ -99,8 +99,11 @@ function buildGraph(api, container) {
   def.nodes.forEach((n) => (nodesById[n.id] = n));
 
   // Edges first so the bubbles paint on top of the line ends. Overlap edges
-  // (thematic closeness, not a learning step) get extra padding so they
-  // also clear the node labels, and render dashed via .ost-overlap.
+  // (thematic closeness, not a learning step) get extra padding so they also
+  // clear the node labels, and render dashed via .ost-overlap. For nodes that
+  // sit close together the full label-clearance pad would consume the whole
+  // segment — in that case shrink the pad so the edge still draws (just
+  // clearing the bubbles), so "docks to all" never silently loses an edge.
   function drawEdge(pair, cls, pad) {
     const a = nodesById[pair[0]];
     const b = nodesById[pair[1]];
@@ -110,10 +113,18 @@ function buildGraph(api, container) {
     const dx = b.x - a.x;
     const dy = b.y - a.y;
     const len = Math.sqrt(dx * dx + dy * dy);
-    const padA = a.r + pad;
-    const padB = b.r + pad;
-    if (!len || len <= padA + padB) {
+    if (!len) {
       return;
+    }
+    let padA = a.r + pad;
+    let padB = b.r + pad;
+    if (len <= padA + padB) {
+      const slack = Math.max(0, (len - a.r - b.r - 12) / 2);
+      padA = a.r + slack;
+      padB = b.r + slack;
+      if (len <= padA + padB) {
+        return;
+      }
     }
     const ux = dx / len;
     const uy = dy / len;
