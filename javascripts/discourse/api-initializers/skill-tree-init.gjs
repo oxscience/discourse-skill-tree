@@ -6,23 +6,25 @@ import { apiInitializer } from "discourse/lib/api";
 const SVG_NS = "http://www.w3.org/2000/svg";
 
 // Fallback when the theme setting is missing or contains invalid JSON.
-// Layout logic: Obsidian-style radial graph. Science is the hub in the
-// center; Training (top right, continuing to Ernährung), Tech & KI (top
-// left), Rehab (bottom right) and Neurowissenschaften (bottom left) radiate
-// outward. Rehab and Neuro converge into Pain & Performance at the bottom
-// center as the endgame node. Symposien is an unlinked satellite (format,
-// not a skill).
+// Layout logic: Science stays the central hierarchy hub (4 solid branches:
+// Tech & KI, Training→Ernährung, Rehab, Neuro). Pain & Performance sits just
+// below center, evenly between its four content partners (Science, Training,
+// Rehab, Neuro) — and deliberately away from Ernährung and Tech & KI, which
+// it does not overlap. Symposien is pulled out of the corner to a central
+// position because it is a cross-cutting format that docks (dashed) to every
+// domain. Three nodes (Science, P&P, Symposien) all want the center, so they
+// share the middle band rather than stacking on one point.
 const DEFAULT_TREE = {
-  height: 470,
+  height: 465,
   nodes: [
-    { id: "science", category: "forschung-evidenz", label: "Science", x: 300, y: 220, r: 38 },
-    { id: "tech-ki", category: "webinare", label: "Tech & KI", x: 150, y: 90, r: 26 },
-    { id: "training", category: "training", label: "Training", x: 430, y: 90, r: 36 },
-    { id: "ernaehrung", category: "ernaehrung", label: "Ernährung", x: 600, y: 140, r: 28 },
-    { id: "rehab", category: "klinik", label: "Rehab", x: 430, y: 330, r: 34 },
-    { id: "neuro", category: "neurowissenschaften", label: ["Neuro-", "wissenschaften"], x: 160, y: 330, r: 32 },
-    { id: "pain-performance", category: "pain-performance", label: "Pain & Performance", x: 300, y: 390, r: 38 },
-    { id: "symposien", category: "ox-symposien-pro", label: "Symposien", x: 610, y: 395, r: 24 },
+    { id: "science", category: "forschung-evidenz", label: "Science", x: 230, y: 210, r: 32 },
+    { id: "tech-ki", category: "webinare", label: "Tech & KI", x: 110, y: 110, r: 24 },
+    { id: "training", category: "training", label: "Training", x: 405, y: 120, r: 30 },
+    { id: "ernaehrung", category: "ernaehrung", label: "Ernährung", x: 555, y: 110, r: 26 },
+    { id: "rehab", category: "klinik", label: "Rehab", x: 495, y: 320, r: 32 },
+    { id: "neuro", category: "neurowissenschaften", label: ["Neuro-", "wissenschaften"], x: 160, y: 385, r: 28 },
+    { id: "pain-performance", category: "pain-performance", label: "Pain & Performance", x: 300, y: 335, r: 36 },
+    { id: "symposien", category: "ox-symposien-pro", label: "Symposien", x: 375, y: 195, r: 26 },
   ],
   links: [
     ["science", "tech-ki"],
@@ -34,13 +36,16 @@ const DEFAULT_TREE = {
     ["neuro", "pain-performance"],
   ],
   // Thematic overlaps (dashed). training/rehab is the obvious clinical one;
-  // ernaehrung/rehab is backed by cross-category topic links. Symposien is a
-  // cross-cutting format — a tag analysis of its 27 talks shows content in
-  // every domain (training, rehab, pain/neuro, science, AI, nutrition), so
-  // it docks to all of them rather than to nutrition alone.
+  // ernaehrung/rehab is backed by cross-category topic links. Pain &
+  // Performance also overlaps Training and Science (its other two partners
+  // are already wired via the solid path through Rehab and Neuro). Symposien
+  // is a cross-cutting format — a tag analysis of its 27 talks shows content
+  // in every domain — so it docks to all of them.
   overlaps: [
     ["training", "rehab"],
     ["ernaehrung", "rehab"],
+    ["pain-performance", "science"],
+    ["pain-performance", "training"],
     ["symposien", "science"],
     ["symposien", "training"],
     ["symposien", "rehab"],
