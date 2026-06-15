@@ -7,30 +7,33 @@ const SVG_NS = "http://www.w3.org/2000/svg";
 
 // Fallback when the theme setting is missing or contains invalid JSON.
 // Layout logic: a clean game-style talent tree, top→down, solid edges only.
-// Science is the root (everything builds on evidence) and fans symmetrically
-// into the five domains. Two branches continue to a third tier: Training →
-// Ernährung, and Rehab + Neuro converge into Pain & Performance — the big
-// capstone you work toward. No dashed "overlap" web: a tree, not a net.
+// Symposien sits at the apex, overarching the whole tree (the cross-cutting
+// talk series). Below it Science is the root and fans into the four domains.
+// Third tier converges: Ernährung is fed by Training + Rehab; Pain &
+// Performance — the big capstone — is fed by Training + Rehab + Neuro.
+// No dashed "overlap" web: a tree, not a net.
 const DEFAULT_TREE = {
-  height: 475,
+  height: 510,
   nodes: [
-    { id: "science", category: "forschung-evidenz", label: "Science", x: 346, y: 70, r: 34 },
-    { id: "tech-ki", category: "webinare", label: "Tech & KI", x: 90, y: 220, r: 26 },
-    { id: "training", category: "training", label: "Training", x: 218, y: 220, r: 30 },
-    { id: "rehab", category: "klinik", label: "Rehab", x: 346, y: 220, r: 32 },
-    { id: "neuro", category: "neurowissenschaften", label: ["Neuro-", "wissenschaften"], x: 474, y: 220, r: 30 },
-    { id: "symposien", category: "ox-symposien-pro", label: "Symposien", x: 602, y: 220, r: 26 },
-    { id: "ernaehrung", category: "ernaehrung", label: "Ernährung", x: 218, y: 375, r: 26 },
-    { id: "pain-performance", category: "pain-performance", label: "Pain & Performance", x: 410, y: 380, r: 42 },
+    { id: "symposien", category: "ox-symposien-pro", label: "Symposien", x: 335, y: 56, r: 26 },
+    { id: "science", category: "forschung-evidenz", label: "Science", x: 335, y: 165, r: 32 },
+    { id: "tech-ki", category: "webinare", label: "Tech & KI", x: 95, y: 300, r: 24 },
+    { id: "training", category: "training", label: "Training", x: 245, y: 300, r: 30 },
+    { id: "rehab", category: "klinik", label: "Rehab", x: 390, y: 300, r: 32 },
+    { id: "neuro", category: "neurowissenschaften", label: ["Neuro-", "wissenschaften"], x: 540, y: 300, r: 28 },
+    { id: "ernaehrung", category: "ernaehrung", label: "Ernährung", x: 300, y: 430, r: 26 },
+    { id: "pain-performance", category: "pain-performance", label: "Pain & Performance", x: 470, y: 430, r: 42 },
   ],
   // Solid tree edges only — the learning progression.
   links: [
+    ["symposien", "science"],
     ["science", "tech-ki"],
     ["science", "training"],
     ["science", "rehab"],
     ["science", "neuro"],
-    ["science", "symposien"],
     ["training", "ernaehrung"],
+    ["rehab", "ernaehrung"],
+    ["training", "pain-performance"],
     ["rehab", "pain-performance"],
     ["neuro", "pain-performance"],
   ],
