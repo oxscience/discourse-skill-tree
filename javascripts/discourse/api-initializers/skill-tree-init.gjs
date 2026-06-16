@@ -13,16 +13,16 @@ const SVG_NS = "http://www.w3.org/2000/svg";
 // Performance — the big capstone — is fed by Training + Rehab + Neuro.
 // No dashed "overlap" web: a tree, not a net.
 const DEFAULT_TREE = {
-  height: 510,
+  height: 525,
   nodes: [
     { id: "symposien", category: "ox-symposien-pro", label: "Symposien", x: 335, y: 56, r: 26 },
     { id: "science", category: "forschung-evidenz", label: "Science", x: 335, y: 165, r: 32 },
-    { id: "tech-ki", category: "webinare", label: "Tech & KI", x: 95, y: 300, r: 24 },
-    { id: "training", category: "training", label: "Training", x: 245, y: 300, r: 30 },
-    { id: "rehab", category: "klinik", label: "Rehab", x: 390, y: 300, r: 32 },
-    { id: "neuro", category: "neurowissenschaften", label: ["Neuro-", "wissenschaften"], x: 540, y: 300, r: 28 },
-    { id: "ernaehrung", category: "ernaehrung", label: "Ernährung", x: 300, y: 430, r: 26 },
-    { id: "pain-performance", category: "pain-performance", label: "Pain & Performance", x: 470, y: 430, r: 42 },
+    { id: "tech-ki", category: "webinare", label: "Tech & KI", x: 125, y: 300, r: 24 },
+    { id: "training", category: "training", label: "Training", x: 265, y: 300, r: 30 },
+    { id: "rehab", category: "klinik", label: "Rehab", x: 405, y: 300, r: 32 },
+    { id: "neuro", category: "neurowissenschaften", label: ["Neuro-", "wissenschaften"], x: 545, y: 300, r: 28 },
+    { id: "ernaehrung", category: "ernaehrung", label: "Ernährung", x: 220, y: 440, r: 26 },
+    { id: "pain-performance", category: "pain-performance", label: "Pain & Performance", x: 335, y: 448, r: 42 },
   ],
   // Solid tree edges only — the learning progression.
   links: [
