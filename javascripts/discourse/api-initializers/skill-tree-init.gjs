@@ -11,6 +11,8 @@ const SVG_NS = "http://www.w3.org/2000/svg";
 // talk series). Below it Science is the root and fans into the four domains.
 // Third tier converges: Ernährung is fed by Training + Rehab; Pain &
 // Performance — the big capstone — is fed by Training + Rehab + Neuro.
+// Kommunikation (MI/CFT series) mirrors Ernährung on the right, fed by
+// Rehab + Neuro (one mirrored edge crossing, same as on the left side).
 // No dashed "overlap" web: a tree, not a net.
 const DEFAULT_TREE = {
   height: 525,
@@ -23,6 +25,7 @@ const DEFAULT_TREE = {
     { id: "neuro", category: "neurowissenschaften", label: ["Neuro-", "wissenschaften"], x: 545, y: 300, r: 28 },
     { id: "ernaehrung", category: "ernaehrung", label: "Ernährung", x: 220, y: 440, r: 26 },
     { id: "pain-performance", category: "pain-performance", label: "Pain & Performance", x: 335, y: 448, r: 42 },
+    { id: "kommunikation", category: "kommunikation", label: "Kommunikation", x: 450, y: 440, r: 26 },
   ],
   // Solid tree edges only — the learning progression.
   links: [
@@ -36,6 +39,8 @@ const DEFAULT_TREE = {
     ["training", "pain-performance"],
     ["rehab", "pain-performance"],
     ["neuro", "pain-performance"],
+    ["rehab", "kommunikation"],
+    ["neuro", "kommunikation"],
   ],
   // Intentionally empty: the dashed thematic web was the main source of
   // clutter. Kept as a capability — re-add pairs here if ever wanted.
